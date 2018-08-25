@@ -332,10 +332,277 @@ if (enteredDoorCode && passedRetinaScan) || hasDoorKey || knowsOverridePassword 
     print("ACCESS DENIED")
 }
 
-if a > 4 {
-    
+/*********************************************************************************/
+//                         Strings and Characters                                 /
+/*********************************************************************************/
+
+let someString = "Some string literal value"
+
+let quotation = """
+The White Rabbit put on his spectacles.  "Where shall I begin,
+please your Majesty?" he asked.
+
+"Begin at the beginning," the King said gravely, "and go on
+till you come to the end; then stop."
+"""
+
+let softWrappedQuotation = """
+The White Rabbit put on his spectacles.  "Where shall I begin, \
+please your Majesty?" he asked.
+
+"Begin at the beginning," the King said gravely, "and go on \
+till you come to the end; then stop."
+"""
+
+print(softWrappedQuotation)
+
+//Special Characters in String Literals
+/*
+    - The escaped special characters \0 (null character), \\ (backslash), \t (horizontal tab), \n (line feed), \r (carriage return), \"
+    (double quotation mark) and \' (single quotation mark)
+    - An arbitrary Unicode scalar, written as \u{n}, where n is a 1–8 digit hexadecimal number with a value equal to a
+    valid Unicode code point (Unicode is discussed in Unicode below)
+ */
+let wiseWords = "\"Imagination is more important than knowledge\" - Einstein"
+
+let dollarSign = "\u{24}"
+let blackHeart = "\u{2665}"
+let sparklingHeart = "\u{1F496}"
+
+//Initializing an Empty String
+var emptyString = ""
+var anotherEmptyString = String()
+/*
+ !!!Swift’s String type is a value type. If you create a new String value, that String value is copied
+    when it’s passed to a function or method, or when it’s assigned to a constant or variable. In each case,
+    a new copy of the existing String value is created, and the new copy is passed or assigned,
+    not the original version.
+ */
+
+//Characters
+for character in "Dog!🐶" {
+    print(character)
 }
 
+let exclamationMark: Character = "!"
+let catCharacters: [Character] = ["C", "a", "t", "!", "🐱"]
+
+let string1 = "hello"
+let string2 = " there"
+var welcome = string1 + string2
+
+var instruction = "look over"
+instruction += string2
+
+//String Interpolation
+let multiplier = 3
+let message = "\(multiplier) times 2.5 is \(Double(multiplier) * 2.5)"
+
+let unusualMenagerie = "Koala 🐨, Snail 🐌, Penguin 🐧, Dromedary 🐪"
+print("unusualMenagerie has \(unusualMenagerie.count) characters")
+
+let greeting = "Guten Tag!"
+greeting[greeting.startIndex]
+greeting[greeting.index(before: greeting.endIndex)]
+greeting[greeting.index(after: greeting.startIndex)]
+let index = greeting.index(greeting.startIndex, offsetBy: 7)
+greeting[index]
+
+for index in greeting.indices {
+    print("\(greeting[index]) ", terminator: "")
+}
+
+var welcomeX = "hello"
+welcomeX.insert("!", at: welcomeX.endIndex)
+
+welcomeX.insert(contentsOf: " there", at: welcomeX.index(before: welcomeX.endIndex))
+
+//Udemy QA is great team! -- Code Challenge
+var startString = "QA great"
+
+startString.append(exclamationMark)
+print(startString)
+
+//Collection Types
+// Swift has three collection types -- Array, Set, Dictionary
+// Array        -- Ordered collection of values
+// Set          -- Unordered collection of unique values
+// Dictionary   -- Unordered collection of key-value assocications
+
+// ARRAY
+// Stores values of the same type in an ordered list
+var someInts = [Int]()
+print("someInts is type of [Int] with \(someInts.count) items")
+
+var threeDoubles = Array(repeating: 0.0, count: 3)
+var anotherThreeDoubles = Array(repeating: 2.5, count: 3)
+
+var sixDoubles = threeDoubles + anotherThreeDoubles
+
+var shoppingList = ["Eggs", "Milk"]
+print("The shopping list contains \(shoppingList.count) items.")
+
+if shoppingList.isEmpty {
+    print("The shopping list is empty.")
+} else {
+    print("The shopping list is not empty.")
+}
+
+shoppingList.append("Flour")
+
+shoppingList += ["Baking Powder"]
+shoppingList += ["Chocolate Spread", "Cheese", "Butter"]
+
+var firstItem = shoppingList[0]
+shoppingList[0] = "Six eggs"
+
+shoppingList[0...4] = ["Bananas", "Apples"]
+print(shoppingList)
+shoppingList.insert("Maple Syrup", at: 0)
+let mapleSyrup = shoppingList.remove(at: 0)
+
+firstItem = shoppingList[0]
+
+let apples = shoppingList.removeLast()
+for item in shoppingList {
+    print(item)
+}
+
+for (index, value) in shoppingList.enumerated() {
+    print("Item \(index + 1): \(value)")
+}
+
+//SETS
+// Stores distinct values of the same type in a collection with no defined ordering
+var letters = Set<Character>()
+print("letters is of type Set<Character> with \(letters.count) items.")
+
+letters.insert("a")
+
+var favoriteGenres: Set<String> = ["Rock", "Classical", "Hip hop"]
+print("I have \(favoriteGenres.count) favorite music genres.")
+
+var result = favoriteGenres.insert("Rock")
+print(result)
+
+if favoriteGenres.isEmpty {
+    print("As far as music goes, I'm not picky.")
+} else {
+    print("I have particular music preferences.")
+}
+
+favoriteGenres.insert("Jazz")
+
+if let removedGenre = favoriteGenres.remove("Rock") {
+    print("\(removedGenre)? I'm over it.")
+} else {
+    print("I never much cared for that.")
+}
+
+if favoriteGenres.contains("Funk") {
+    print("I get up on the good foot.")
+} else {
+    print("It's too funky in here.")
+}
+
+for genre in favoriteGenres {
+    print("\(genre)")
+}
+
+for genre in favoriteGenres.sorted() {
+    print("\(genre)")
+}
+
+for genre in favoriteGenres.sorted().reversed() {
+    print("\(genre)")
+}
+
+let oddDigits: Set = [1, 3, 5, 7, 9]
+let evenDigits: Set = [0, 2, 4, 6, 8]
+let singleDigitPrimeNumbers: Set = [2, 3, 5, 7]
+
+//A ∪ B
+oddDigits.union(evenDigits).sorted()
+//(A - B) ∪ (B - A)
+oddDigits.symmetricDifference(singleDigitPrimeNumbers)
+//A ∩ B
+oddDigits.intersection(singleDigitPrimeNumbers)
+//A - B
+oddDigits.subtracting(singleDigitPrimeNumbers)
+
+//Code Challenge
+// 0 < x < 15, x % 4 = 0
+// 0 < y < 15, x % 3 = 0
+// a ∈ (x - y), b ∈ (y - x), c ∈ (x ∩ y) => ∑a * ∑b / ∑c ?
+
+let houseAnimals: Set = ["🐶", "🐱"]
+let myHouseAnimals: Set = ["🐶", "🐱"]
+let farmAnimals: Set = ["🐮", "🐔", "🐑", "🐶", "🐱"]
+let cityAnimals: Set = ["🐦", "🐭"]
+
+houseAnimals.isSubset(of: farmAnimals)
+houseAnimals.isStrictSubset(of: farmAnimals)
+myHouseAnimals.isStrictSubset(of: houseAnimals)
+farmAnimals.isSuperset(of: houseAnimals)
+farmAnimals.isStrictSuperset(of: houseAnimals)
+farmAnimals.isDisjoint(with: cityAnimals)
+
+//DICTIONARIES
+//stores associations between keys of the same type and values of the same type in a collection with no defined ordering.
+//Each value is associated with a unique key, which acts as an identifier for that value within the dictionary. Unlike
+//items in an array, items in a dictionary do not have a specified order.
+
+var namesOfIntegers = [Int: String]()
+namesOfIntegers[16] = "sixteen"
+namesOfIntegers = [:]
+
+var airports: [String: String] = ["ESB": "Esenboga", "DUB": "Dublin"]
+airports = ["ESB": "Esenboga", "DUB": "Dublin"]
+
+print("The airports dictionary contains \(airports.count) items.")
+
+if airports.isEmpty {
+    print("The airports dictionary is empty.")
+} else {
+    print("The airports dictionary is not empty.")
+}
+
+airports["LHR"] = "London"
+airports["LHR"] = "London Heathrow"
+
+if let oldValue = airports.updateValue("Dublin Airport", forKey: "DUB") {
+    print("The old value for DUB was \(oldValue).")
+}
+
+if let airportName = airports["DUB"] {
+    print("The name of the airport is \(airportName).")
+} else {
+    print("That airport is not in the airports dictionary.")
+}
+
+airports["APL"] = "Apple International"
+airports["APL"] = nil //?
+
+if let removedValue = airports.removeValue(forKey: "DUB") {
+    print("The removed airport's name is \(removedValue).")
+} else {
+    print("The airports dictionary does not contain a value for DUB.")
+}
+
+for (airportCode, airportName) in airports {
+    print("\(airportCode): \(airportName)")
+}
+
+for airportCode in airports.keys {
+    print("Airport code: \(airportCode)")
+}
+
+for airportName in airports.values {
+    print("Airport name: \(airportName)")
+}
+
+let airportCodes = [String](airports.keys)
+let airportNames = [String](airports.values)
 //print KeyBoard shortcut and swift cheet sheet
 
 // Variable decleration
